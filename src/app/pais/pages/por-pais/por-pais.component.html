@@ -16,11 +16,12 @@
 
 <hr>
 
-<div class="alert alert-danger">
-    No se encontró nada con el término Abvana
+<div *ngIf="hayError"
+     class="alert alert-danger">
+    No se encontró nada con el término {{ termino }}
 </div>
 
-<div class="row">
+<div *ngIf="!hayError && hayPaises" class="row">
     <div class="col">
         <table class="table table-hover">
             <thead>
@@ -34,13 +35,18 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>bandera</td>
-                    <td>nombre</td>
-                    <td>123341413</td>
+                <tr *ngFor="let pais of paises;let indexOfelement=index;">
+                    <td>{{ indexOfelement + 1 }}</td>
                     <td>
-                        <a href="/asdasd">Ver...</a>
+                        <img class ="small-flag"
+                             [src]="pais.flag"
+                        >
+                    </td>
+                    <td>{{ pais.name }}</td>
+                    <td>{{ pais.population | number }}</td>
+                    <td>
+                        <a [routerLink]="['/pais', pais.alpha2Code]" 
+                           >Ver...</a>
                     </td>
                 </tr>
             </tbody>
