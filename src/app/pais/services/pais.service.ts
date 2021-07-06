@@ -13,8 +13,8 @@ export class PaisService {
 
   constructor( private http: HttpClient ) { }
 
-  buscarPais( termino: string): Observable<Country[]> {
-    const url = `${ this.apiUrl }/name/${ termino }`;
+  buscarPais( termino: string, byWhat: string): Observable<Country[]> {
+    const url = `${ this.apiUrl }/${ byWhat }/${ termino }`;
 
     return this.http.get<Country[]>( url );
                 // .pipe(
@@ -22,4 +22,10 @@ export class PaisService {
                 // ); //atrapa el error y retorna un arreglo vacío(un nuevo obserbable)
                     //mediante el operator catchError
   }
+  getPaisPorAlpha( id: string): Observable<Country> {
+    const url = `${ this.apiUrl }/alpha/${ id }`;
+
+    return this.http.get<Country>( url );
+  }
+  
 }
